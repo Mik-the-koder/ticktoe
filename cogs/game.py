@@ -40,24 +40,31 @@ class Game():
         content = None
         if str(ctx.message.author) == self.cross:
             if self.game.returnWho() == 'x':
-                content = self.game.makeMove('x',message)
-                if content[1]:
-                    await self.bot.say(content)
-                    # some fancy printing required
-                else:
-                    await self.bot.say(content[0])
-                    self.flush()
+                try:
+                    content = self.game.makeMove('x',message)
+                    print(content)
+                    if content[1]:
+                        await self.bot.say(content)
+                        # some fancy printing required
+                    else:
+                        await self.bot.say(content[0])
+                        self.flush()
+                except (TypeError,IndexError,ValueError):
+                    await self.bot.say("range is b/w 0-9")
             else:
                 await self.bot.say("ayyyyyy, it ain't your chance !!")
         elif str(ctx.message.author) == self.nots:
             if self.game.returnWho() == 'o':
-                content = self.game.makeMove('o',message)
-                if content[1]:
-                    await self.bot.say(content)
-                    # some fancy printing required
-                else:
-                    await self.bot.say(content[0])
-                    self.flush()
+                try:
+                    content = self.game.makeMove('o',message)
+                    if content[1]:
+                        await self.bot.say(content)
+                        # some fancy printing required
+                    else:
+                        await self.bot.say(content[0])
+                        self.flush()
+                except (IndexError,ValueError):
+                    await self.bot.say("range is b/w 0-9")
             else:
                 await self.bot.say("ayyyyyy, it ain't your chance !!")
         else:
