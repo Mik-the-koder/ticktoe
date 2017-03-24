@@ -1,17 +1,9 @@
 # Tick tac toe
 # for the lolz, and learning
 
-
-
 class TickToe:
     def __init__(self):
         self.grid = [[" "]*3,[" "]*3,[" "]*3]
-        self.visualGrid = """   {0} |  {3}  |  {6}
-        -------------------
-           {1} |  {4}  |  {7}
-        -------------------
-           {2} |  {5}  |  {8}
-        """
         #self.grid = [list(range(0,3)),list(range(3,6)),list(range(6,9))]
         self.whoMove = {'x'}
         self.length = 3
@@ -20,12 +12,6 @@ class TickToe:
 
     def flush(self):
         self.grid = [[" "]*3,[" "]*3,[" "]*3]
-        self.visualGrid = """   {0} |  {3}  |  {6}
-        -------------------
-           {1} |  {4}  |  {7}
-        -------------------
-           {2} |  {5}  |  {8}
-        """
         self.whoMove = {'x'}
         self.moves = 0
 
@@ -79,14 +65,13 @@ class TickToe:
             y = int(location / self.length)
             if self.grid[x][y] == ' ':
                 self.grid[x][y] = player
-                self.visualGrid.format(location)
                 self.whoMove = {'x','o'} - set(player)
                 return self.showGrid()
             else:
                 return ("The location is already filled")
         except (IndexError,ValueError) as error:
                 self.whoMove = set(player)
-                return error
+                raise error
         #return (self.showGrid(),False)
         self.moves += 1
 
@@ -102,7 +87,14 @@ class TickToe:
             return ("Maximum number of moves reached, it's a tie !",False)
 
     def showGrid(self):
-        return self.grid
+        ListSum = lambda items: items[0]+items[1]+items[2]
+        stringList = [[""]*3,[""]*3,[""]*3]
+        string = '''--------------'''
+        for i in range(self.length):
+            for j in range(self.bredth):
+                stringList[i][j] = str(self.grid[i][j]) +  ' | '
+        returnString = '''```{0}\n{1}\n{0}\n{2}\n{0}\n{3}```'''.format(string,ListSum(stringList[0]),ListSum(stringList[1]),ListSum(stringList[2]),string)
+        return returnString
 
 if __name__ == "__main__":
     print("n0t y3t b0iii!")

@@ -45,11 +45,10 @@ class Game():
                     print(content)
                     if content[1]:
                         await self.bot.say(content)
-                        # some fancy printing required
                     else:
                         await self.bot.say(content[0])
                         self.flush()
-                except (TypeError,IndexError,ValueError):
+                except (IndexError):
                     await self.bot.say("range is b/w 0-9")
             else:
                 await self.bot.say("ayyyyyy, it ain't your chance !!")
@@ -57,10 +56,11 @@ class Game():
             if self.game.returnWho() == 'o':
                 try:
                     content = self.game.makeMove('o',message)
+                    print(content)
                     if content[1]:
                         await self.bot.say(content)
                         # some fancy printing required
-                    else:
+                    elif not content[1]:
                         await self.bot.say(content[0])
                         self.flush()
                 except (IndexError,ValueError):
