@@ -16,7 +16,6 @@ class TickToe:
         self.moves = 0
 
     def returnWho(self):
-        #print(self.whoMove, type(self.whoMove))
         return next(iter(self.whoMove))
 
     def checkWin(self,Char):
@@ -66,6 +65,7 @@ class TickToe:
             if self.grid[x][y] == ' ':
                 self.grid[x][y] = player
                 self.whoMove = {'x','o'} - set(player)
+                self.moves += 1
                 return self.showGrid()
             else:
                 return ("The location is already filled")
@@ -73,10 +73,9 @@ class TickToe:
                 self.whoMove = set(player)
                 raise error
         #return (self.showGrid(),False)
-        self.moves += 1
 
     def makeMove(self,player,location):
-        if self.moves != 9:
+        if self.moves != 8:
             returnValue = self.genericMove(player,location)
             if self.checkWin(player):
                 self.flush()
@@ -93,7 +92,7 @@ class TickToe:
         for i in range(self.length):
             for j in range(self.bredth):
                 stringList[i][j] = str(self.grid[i][j]) +  ' | '
-        returnString = '''```{0}\n{1}\n{0}\n{2}\n{0}\n{3}```'''.format(string,ListSum(stringList[0]),ListSum(stringList[1]),ListSum(stringList[2]),string)
+        returnString = '''```\n{1}\n{0}\n{2}\n{0}\n{3}```'''.format(string,ListSum(stringList[0]),ListSum(stringList[1]),ListSum(stringList[2]),string)
         return returnString
 
 if __name__ == "__main__":

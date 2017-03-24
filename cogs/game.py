@@ -42,7 +42,6 @@ class Game():
             if self.game.returnWho() == 'x':
                 try:
                     content = self.game.makeMove('x',message)
-                    print(content)
                     if content[1]:
                         await self.bot.say(content)
                     else:
@@ -56,7 +55,6 @@ class Game():
             if self.game.returnWho() == 'o':
                 try:
                     content = self.game.makeMove('o',message)
-                    print(content)
                     if content[1]:
                         await self.bot.say(content)
                         # some fancy printing required
