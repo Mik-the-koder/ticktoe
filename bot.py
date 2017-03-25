@@ -21,6 +21,9 @@ logger.addHandler(handler)
 # extentions / cogs
 initial_extensions = [ 'cogs.game' ]
 
+# remove_command
+bot.remove_command("help")
+
 # event handelers
 @bot.event
 async def on_ready ():
@@ -31,18 +34,37 @@ async def on_ready ():
 async def on_message(message):
     if message.author == bot.user:
         return
-    if message.content.lower() == ';tick help':
+    if message.content.lower() == '!tick help':
         await bot.send_typing(message.channel)
+    if message.content.lower() == '<@285777147807793153> help':
+        await bot.send_typing(message.channel)
+        await bot.send_message(message.channel,'command prefix is ``!tick``, type ``!tick help`` for help.')
+    if message.content.lower() == '<@285777147807793153>':
+        await bot.send_typing(message.channel)
+        await bot.send_message(message.channel,'yes')
         #await bot.send_message(message.channel,"Help is on it's way! Check your messages !!")
-
     await bot.process_commands(message)
+
+@bot.command()
+async def help():
+    embed = discord.Embed (
+        title = '{}'.format(description),
+        description = """
+        **Pre-Game**:
+        --: setCross: select 'x' as player
+        --: setNot: select 'o' as player
+        **Game**:
+        --: setItem: set either 'o' or 'x' in the grid
+        """,
+        colour = discord.Colour(0x71368a)
+    ).set_author(name = bot.user.name)
+    await bot.say(embed=embed)
 
 def loadCreds():
     with open('creds.json') as f:
         return json.load(f)
 
 if __name__ == '__main__':
-    #creds = loadCreds()
     token = loadCreds()['token']
 
     for extension in initial_extensions:
