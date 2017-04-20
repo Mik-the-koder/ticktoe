@@ -19,6 +19,17 @@ class Game():
         self.cross = None
         self.gameGrid = None
 
+    @bot.command()
+    async def setSize(self,message:int):
+        if message < 2 and message > 6:
+            await self.bot.say("3-5")
+        else:
+            try:
+                self.game.setSize(message)
+                await self.bot.say("grid size set to {}".format(message))
+            except ValueError as e:
+                await self.bot.say(e)
+
     @bot.command(pass_context=True)
     async def setNot(self,ctx):
         if self.nots == None:
@@ -48,7 +59,7 @@ class Game():
                         await self.bot.say(content[0])
                         self.flush()
                 except (IndexError):
-                    await self.bot.say("range is b/w 0-9")
+                    await self.bot.say("Value out of range.")
             else:
                 await self.bot.say("ayyyyyy, it ain't your chance !!")
         elif str(ctx.message.author) == self.nots:
@@ -61,8 +72,8 @@ class Game():
                     elif not content[1]:
                         await self.bot.say(content[0])
                         self.flush()
-                except (IndexError,ValueError):
-                    await self.bot.say("range is b/w 0-9")
+                except IndexError:
+                    await self.bot.say("Value out of range.")
             else:
                 await self.bot.say("ayyyyyy, it ain't your chance !!")
         else:
