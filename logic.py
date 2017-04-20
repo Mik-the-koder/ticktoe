@@ -27,6 +27,7 @@ class TickToe:
             raise ValueError('The game has already started.')
 
     def returnWho(self):
+        #print(self.whoMove, type(self.whoMove))
         return next(iter(self.whoMove))
 
     def checkWin(self,Char):
@@ -76,16 +77,26 @@ class TickToe:
             if self.grid[x][y] == ' ':
                 self.grid[x][y] = player
                 self.whoMove = {'x','o'} - set(player)
-                self.moves += 1
                 return self.showGrid()
             else:
                 return ("The location is already filled")
+<<<<<<< Updated upstream
         except IndexError as error:
             self.whoMove = set(player)
             raise error
 
     def makeMove(self,player,location):
         if self.moves != self.length**2:
+=======
+        except (IndexError,ValueError) as error:
+                self.whoMove = set(player)
+                return error
+        #return (self.showGrid(),False)
+        self.moves += 1
+
+    def makeMove(self,player,location):
+        if self.moves != 9:
+>>>>>>> Stashed changes
             returnValue = self.genericMove(player,location)
             if self.checkWin(player):
                 self.flush()
@@ -96,6 +107,7 @@ class TickToe:
             return ("Maximum number of moves reached, it's a tie !",False)
 
     def showGrid(self):
+<<<<<<< Updated upstream
         returnString = "```\n"
         returnString += "-----"*self.length + '\n'
         for i in range(self.length):
@@ -105,6 +117,9 @@ class TickToe:
             returnString += "\n" + "-----"*self.bredth + "\n"
         returnString += '```'
         return returnString
+=======
+        return self.grid
+>>>>>>> Stashed changes
 
 if __name__ == "__main__":
     print("n0t y3t b0iii!")

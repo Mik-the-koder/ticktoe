@@ -52,13 +52,20 @@ class Game():
             if self.game.returnWho() == 'x':
                 try:
                     content = self.game.makeMove('x',message)
+                    print(content)
                     if content[1]:
                         await self.bot.say(content)
+                        # some fancy printing required
                     else:
                         await self.bot.say(content[0])
                         self.flush()
+<<<<<<< Updated upstream
                 except IndexError:
                     await self.bot.say("Value out of range.")
+=======
+                except (TypeError):
+                    await self.bot.say("range is b/w 0-9")
+>>>>>>> Stashed changes
             else:
                 await self.bot.say("ayyyyyy, it ain't your chance !!")
         elif str(ctx.message.author) == self.nots:
@@ -68,7 +75,7 @@ class Game():
                     if content[1]:
                         await self.bot.say(content)
                         # some fancy printing required
-                    elif not content[1]:
+                    else:
                         await self.bot.say(content[0])
                         self.flush()
                 except IndexError:
