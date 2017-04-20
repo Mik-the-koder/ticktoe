@@ -1,6 +1,5 @@
 # Tick tac toe
 # for the lolz, and learning
-import numpy as np
 
 class TickToe:
     def __init__(self):
@@ -33,8 +32,8 @@ class TickToe:
     def checkWin(self,Char):
         rightDiagonal = True
         leftDiagonal = True
-        topDown = [True]*3
-        rightLeft = [True]*3
+        topDown = [True]*self.length
+        rightLeft = [True]*self.bredth
 
         # check for diagonals
         # right diagonal
@@ -97,13 +96,14 @@ class TickToe:
             return ("Maximum number of moves reached, it's a tie !",False)
 
     def showGrid(self):
-        print (np.array(self.grid))
-        returnString = ''
+        returnString = "```\n"
+        returnString += "-----"*self.length + '\n'
         for i in range(self.length):
-            returnString += '| '
+            returnString += "| "
             for j in range(self.bredth):
-                returnString += self.grid[i][j] + ' | '
-                returnString += '\n' + '-----'*self.bredth + '\n'
+                returnString += self.grid[i][j] + " | "
+            returnString += "\n" + "-----"*self.bredth + "\n"
+        returnString += '```'
         return returnString
 
 if __name__ == "__main__":

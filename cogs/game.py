@@ -2,7 +2,6 @@ from discord.ext import commands
 from logic import TickToe
 import discord.utils
 import discord
-import random
 
 bot = commands.Bot(command_prefix = '!tick ')
 
@@ -58,7 +57,7 @@ class Game():
                     else:
                         await self.bot.say(content[0])
                         self.flush()
-                except (IndexError):
+                except IndexError:
                     await self.bot.say("Value out of range.")
             else:
                 await self.bot.say("ayyyyyy, it ain't your chance !!")

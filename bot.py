@@ -3,7 +3,6 @@ from logic import TickToe
 import discord.utils
 import discord
 import logging
-import random
 import json
 
 # gloabal stuff
@@ -34,6 +33,27 @@ async def on_ready ():
 async def on_message(message):
     if message.author == bot.user:
         return
+    if message.content.lower() == "!tick who's that pokemon":
+        await bot.send_message(
+            message.channel,
+            """```
+            ░█░░░▀▄░▄▄▄▄▄░▄▀░░░█
+            ░░▀▄░░░▀░░░░░▀░░░▄▀
+            ░░░░▌░▄▄░░░▄▄░▐▀▀
+            ░░░▐░░█▄░░░▄█░░▌▄▄▀▀▀▀█
+            ░░░▌▄▄▀▀░▄░▀▀▄▄▐░░░░░░█
+            ▄▀▀▐▀▀░▄▄▄▄▄░▀▀▌▄▄▄░░░█
+            █░░░▀▄░█░░░█░▄▀░░░░█▀▀▀
+            ░▀▄░░▀░░▀▀▀░░▀░░░▄█▀
+            ░░░█░░░░░░░░░░░▄▀▄░▀▄
+            ░░░█░░░░░░░░░▄▀█░░█░░█
+            ░░░█░░░░░░░░░░░█▄█░░▄▀
+            ░░░█░░░░░░░░░░░████▀
+            ░░░▀▄▄▀▀▄▄▀▀▄▄▄█▀﻿
+            ░░░PIKA PIKA░░░░░░
+            ```
+            """
+        )
     if message.content.lower() == '!tick help':
         await bot.send_typing(message.channel)
     if message.content.lower() == '<@285777147807793153> help':
@@ -52,6 +72,7 @@ async def help():
         description = """
         **Pre-Game**:
         --: setCross: select 'x' as player
+        --: setSize: set grid size 3 -> 5
         --: setNot: select 'o' as player
         **Game**:
         --: setItem: set either 'o' or 'x' in the grid
@@ -63,6 +84,17 @@ async def help():
 def loadCreds():
     with open('creds.json') as f:
         return json.load(f)
+
+@bot.command()
+async def invite():
+    rl = loadCreds()['invite_Link']
+    msg = discord.Embed (
+            title = 'Invite Link',
+            description = 'Invite me to yer server with this >.<',
+            image = self.bot.user.avatar_url,
+            url = rl
+        ).set_author(name = self.bot.user.name,url = rl, icon_url = self.bot.user.avatar_url )
+    await self.bot.say(embed=msg)
 
 if __name__ == '__main__':
     token = loadCreds()['token']
