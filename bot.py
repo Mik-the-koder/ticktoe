@@ -20,6 +20,9 @@ logger.addHandler(handler)
 # extentions / cogs
 initial_extensions = [ 'cogs.game' ]
 
+# remove_command
+bot.remove_command("help")
+
 # event handelers
 @bot.event
 async def on_ready ():
@@ -30,7 +33,6 @@ async def on_ready ():
 async def on_message(message):
     if message.author == bot.user:
         return
-<<<<<<< Updated upstream
     if message.content.lower() == "!tick who's that pokemon":
         await bot.send_message(
             message.channel,
@@ -58,13 +60,11 @@ async def on_message(message):
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel,'command prefix is ``!tick``, type ``!tick help`` for help.')
     if message.content.lower() == '<@285777147807793153>':
-=======
-    if message.content.lower() == ';tick help':
->>>>>>> Stashed changes
         await bot.send_typing(message.channel)
+        await bot.send_message(message.channel,'yes')
         #await bot.send_message(message.channel,"Help is on it's way! Check your messages !!")
+    await bot.process_commands(message)
 
-<<<<<<< Updated upstream
 @bot.command()
 async def help():
     embed = discord.Embed (
@@ -80,9 +80,6 @@ async def help():
         colour = discord.Colour(0x71368a)
     ).set_author(name = bot.user.name)
     await bot.say(embed=embed)
-=======
-    await bot.process_commands(message)
->>>>>>> Stashed changes
 
 def loadCreds():
     with open('creds.json') as f:
@@ -100,7 +97,6 @@ async def invite():
     await self.bot.say(embed=msg)
 
 if __name__ == '__main__':
-    #creds = loadCreds()
     token = loadCreds()['token']
 
     for extension in initial_extensions:
